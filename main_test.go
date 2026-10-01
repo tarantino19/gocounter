@@ -1,6 +1,10 @@
-package main
+package main_test
 
-import "testing"
+import (
+	"testing"
+
+	counter "github.com/tarantino19/gocounter"
+)
 
 func TestCountWords(t *testing.T) {
 
@@ -34,11 +38,21 @@ func TestCountWords(t *testing.T) {
 			input: "This is a sentence.  This is another ",
 			wants: 7,
 		},
+		{
+			name:  "Prefixed multiple spaces",
+			input: "    Hello",
+			wants: 1,
+		},
+		{
+			name:  "Suffixed multiple spaces",
+			input: "Hello  ",
+			wants: 1,
+		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			result := CountWords([]byte(tc.input))
+			result := counter.CountWords([]byte(tc.input))
 
 			if result != tc.wants {
 				t.Logf("expected: %d got: %d", tc.wants, result)

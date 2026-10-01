@@ -1,32 +1,24 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 )
 
 func main() {
-	data, _ := os.ReadFile("./words.txt")
+	data, err := os.ReadFile("./words.txt")
+
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 
 	wordCount := CountWords(data)
 	fmt.Println(wordCount)
 }
 
 func CountWords(data []byte) int {
-
-	if len(data) == 0 {
-		return 0
-	}
-
-	wordCount := 0
-
-	for _, v := range data {
-		if v == ' ' {
-			wordCount++
-		}
-	}
-
-	wordCount++
-
-	return wordCount
+	words := len(bytes.Fields(data))
+	return words
 }
