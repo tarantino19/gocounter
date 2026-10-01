@@ -8,7 +8,7 @@ import (
 
 func main() {
 	data, err := os.ReadFile("./words.txt")
-
+	fmt.Println("Hello, Words!")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
