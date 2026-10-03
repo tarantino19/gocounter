@@ -48,6 +48,8 @@ func CountWordsInFile(filename string) (int, error) {
 		return 0, fmt.Errorf("failed to open file: %w", err) //error wrappin
 	}
 
+	defer file.Close()
+
 	return CountWords(file), nil
 
 }
