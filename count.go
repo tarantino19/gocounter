@@ -21,8 +21,12 @@ func CountFile(filename string) (Counts, error) {
 
 	defer file.Close()
 
+	const offsetStart = 0
+
 	byteCount := CountBytes(file)
+	file.Seek(offsetStart, io.SeekStart)
 	wordCount := CountWords(file)
+	file.Seek(offsetStart, io.SeekStart)
 	lineCount := CountLines(file)
 
 	return Counts{

@@ -23,12 +23,14 @@ func main() {
 		}
 
 		total += counts.Words
-		fmt.Println(counts.Words, ":", filename)
+		fmt.Println(counts.Bytes, counts.Words, counts.Lines, ":", filename)
 	}
 
 	if len(fileNames) == 0 {
 		wordCount := CountWords(os.Stdin)
-		fmt.Println(wordCount, "hello")
+		byteCount := CountBytes(os.Stdin)
+		lineCount := CountLines(os.Stdin)
+		fmt.Println(wordCount, byteCount, lineCount)
 	}
 
 	if len(fileNames) > 1 {
