@@ -2,21 +2,34 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"os"
 )
 
-func CountWordsInFile(filename string) (int, error) {
+type Counts struct {
+	Lines int
+	Words int
+	Bytes int
+}
+
+func CountFile(filename string) (Counts, error) {
 	file, err := os.Open(filename)
 
 	if err != nil {
-		return 0, fmt.Errorf("failed to open file: %w", err) //error wrappin
+		return Counts{}, err
 	}
 
 	defer file.Close()
 
-	return CountWords(file), nil
+	byteCount := CountBytes(file)
+	wordCount := CountWords(file)
+	lineCount := CountLines(file)
+
+	return Counts{
+		Bytes: byteCount,
+		Words: wordCount,
+		Lines: lineCount,
+	}, nil
 
 }
 
